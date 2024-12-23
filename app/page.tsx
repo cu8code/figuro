@@ -52,7 +52,9 @@ export default function Home() {
 
 export const Call = () => {
 	return (
-		<div></div>
+		<button className="bg-[#E90074] text-white py-3 px-8 rounded-lg text-lg font-semibold hover:bg-[#e28e4f] transition-all duration-300">
+			Get Started for Free
+		</button>
 	)
 }
 
@@ -172,9 +174,6 @@ export const Midsection = () => {
 		</div>
 	);
 };
-
-
-
 
 export const Footer = () => {
 	const socials = [
@@ -344,7 +343,6 @@ const ProcessingVisualization = () => {
 				height="315"
 				src="https://www.youtube.com/embed/hI9HQfCAw64"
 				title="YouTube video"
-				frameBorder="0"
 				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 				allowFullScreen
 				className="rounded-lg"
