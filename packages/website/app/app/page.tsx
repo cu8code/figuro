@@ -1,4 +1,4 @@
-export default const Page = () => {
+export default function Page(){
 	return (
 		<div>
 			App
