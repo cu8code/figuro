@@ -1,5 +1,5 @@
 import { AArrowDown, Check, Building2 } from "lucide-react";
-import { Card, CardHeader, CardContent } from "./utils";
+import { Card, CardHeader, CardContent, WrapperGetStarted } from "./utils";
 
 export const Footer = () => {
 	const socials = [
@@ -41,9 +41,11 @@ export const Footer = () => {
 										<span>1 FFY (we negotiate with company for you when copyright gets violated)</span>
 									</li>
 								</ul>
+                                <WrapperGetStarted>
 								<button className="w-full bg-[#E90074] text-white py-3 rounded-lg mt-6 font-semibold">
 									Get Started Free
 								</button>
+                                </WrapperGetStarted>
 							</CardContent>
 						</Card>
 

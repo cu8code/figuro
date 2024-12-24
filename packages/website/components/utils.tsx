@@ -43,7 +43,7 @@ export const CardContent: React.FC<CardContentProps> = ({ className, children })
 
 export const WrapperGetStarted = (props: {children: React.ReactNode}) => {
     return (
-        <Link href={"/app"}>{props.children}</Link>
+        <Link href={"/dashboard"}>{props.children}</Link>
     )
 }
 
@@ -52,3 +52,11 @@ export const WrapperCall = (props: {children: React.ReactNode}) => {
         <Link href={"/call"}>{props.children}</Link>
     )
 }
+
+const FlippedWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div style={{ transform: 'rotateY(180deg)' }}>
+    {children}
+  </div>
+);
+
+export default FlippedWrapper;
