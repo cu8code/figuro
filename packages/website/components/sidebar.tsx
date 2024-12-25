@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Profile } from "./profile";
+import Logout from "./logout";
 
 export const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -102,6 +103,7 @@ export const Sidebar: React.FC = () => {
 
             {/* Profile Section */}
             <Profile />
+            <Logout />
           </div>
         </div>
       </aside>

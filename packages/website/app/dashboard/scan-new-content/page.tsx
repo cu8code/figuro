@@ -94,40 +94,6 @@ export default function ScanNewContent() {
           </div>
         </section>
       )}
-
-      {/* Section for Scan History or Results */}
-      <section className="p-6 rounded border border-gray-300 mt-6">
-        <h2 className="text-xl font-semibold mb-4">Previous Scans</h2>
-        <div className="space-y-4">
-          <div className="p-4 flex items-center border border-gray-300 rounded">
-            <Youtube className="text-red-500 mr-4" size={24} />
-            <div>
-              <p className="font-semibold">Content Title - URL</p>
-              <p className="text-sm text-gray-500">Platform: YouTube</p>
-              <p className="text-sm text-gray-400">Scan Completed: 12/20/2024</p>
-              <span className="text-green-500">Matches Found: 3</span>
-            </div>
-          </div>
-          <div className="p-4 flex items-center border border-gray-300 rounded">
-            <Instagram className="text-pink-500 mr-4" size={24} />
-            <div>
-              <p className="font-semibold">Content Title - URL</p>
-              <p className="text-sm text-gray-500">Platform: Instagram</p>
-              <p className="text-sm text-gray-400">Scan Completed: 12/19/2024</p>
-              <span className="text-red-500">Matches Found: 1</span>
-            </div>
-          </div>
-          <div className="p-4 flex items-center border border-gray-300 rounded">
-            <Globe className="text-blue-500 mr-4" size={24} />
-            <div>
-              <p className="font-semibold">Content Title - URL</p>
-              <p className="text-sm text-gray-500">Platform: Website</p>
-              <p className="text-sm text-gray-400">Scan Completed: 12/18/2024</p>
-              <span className="text-yellow-500">Matches Found: 0</span>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

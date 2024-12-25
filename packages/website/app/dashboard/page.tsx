@@ -67,7 +67,7 @@ export default function Page() {
 								</p>
 								<div className="flex items-baseline gap-3 text-lg font-semibold">
 									<div className="text-6xl">511</div>
-									<div className="text-md text-red-500">64.6%</div>
+									<div className="text-md text-[#e90074]">64.6%</div>
 								</div>
 							</div>
 						</div>

@@ -13,7 +13,7 @@ export default function LoginPage() {
             Access your account to enjoy personalized features, or create a new account to get started!
           </p>
           
-          <form className="bg-gray-50 p-8 rounded-lg shadow-lg max-w-lg mx-auto">
+          <form className="border p-8 rounded-xl max-w-lg mx-auto">
             {/* Email Input */}
             <div className="mb-6">
               <input
