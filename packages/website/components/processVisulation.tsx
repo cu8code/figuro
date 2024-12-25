@@ -4,7 +4,7 @@ export const ProcessingVisualization = () => {
 			<iframe
 				width="100%"
 				height="315"
-				src="https://www.youtube.com/embed/hI9HQfCAw64"
+				src={process.env.NEXT_PUBLIC_YOUTUBE_VIDEO_URL!}
 				title="YouTube video"
 				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 				allowFullScreen
