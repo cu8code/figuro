@@ -64,3 +64,28 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+@keyframes zoomInOut {
+  0%, 100% {
+    transform: scale(1.2); /* Slightly zoomed in */
+  }
+  50% {
+    transform: scale(1); /* Normal size */
+  }
+}
+
+@media (max-width: 768px) {
+  @keyframes zoomInOut {
+    0%, 100% {
+      transform: scale(1); /* Normal size for smaller screens */
+    }
+    50% {
+      transform: scale(1.2); /* Slightly zoomed in */
+    }
+  }
+}
+
+.animate-hero-bg {
+  animation: zoomInOut 10s ease-in-out infinite;
+}

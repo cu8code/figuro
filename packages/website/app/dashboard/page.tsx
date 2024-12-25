@@ -1,7 +1,9 @@
 "use client";
 
 import { HeroGraph } from "@/components/bargraph";
-import { Plus, Play, Target, TrendingUp, CheckCircle, AlertCircle } from "lucide-react";
+import { RecentTables } from "@/components/recent";
+import { Plus, Play, Target, TrendingUp, CheckCircle, AlertCircle, MoveDownLeft, MoveUpRight } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 export function Date() {
@@ -16,9 +18,8 @@ export function Date() {
 				{options.map((option) => (
 					<div
 						key={option}
-						className={`cursor-pointer px-3 py-1 rounded-md transition ${
-							selected === option ? "bg-black text-white" : ""
-						}`}
+						className={`cursor-pointer px-3 py-1 rounded-md transition ${selected === option ? "bg-black text-white" : ""
+							}`}
 						onClick={() => setSelected(option)}
 					>
 						{option}
@@ -31,7 +32,7 @@ export function Date() {
 
 export default function Page() {
 	return (
-		<main className="flex-1 bg-white p-4 space-y-6">
+		<main className="flex-1 p-4 space-y-6">
 			<div className="p-6 bg-[#e90074] text-white rounded-2xl shadow flex flex-col md:flex-row justify-between items-center gap-6">
 
 				{/* Left Section for Scans and Percentage */}
@@ -51,10 +52,12 @@ export default function Page() {
 
 				{/* Right Section for Buttons */}
 				<div className="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-3">
-					<button className="flex items-center gap-2 px-6 py-2 bg-white text-[#e90074] font-semibold rounded-lg shadow-md transition duration-200">
-						<Plus className="w-5 h-5" />
-						Add New Source
-					</button>
+					<Link href={"/dashboard/scan-new-content"}>
+						<button className="flex items-center gap-2 px-6 py-2 bg-white text-[#e90074] font-semibold rounded-lg shadow-md transition duration-200">
+							<Plus className="w-5 h-5" />
+							Scan New Content
+						</button>
+					</Link>
 					<button className="flex items-center gap-2 px-6 py-2 bg-white text-[#e90074] font-semibold rounded-lg shadow-md transition duration-200">
 						<Plus className="w-5 h-5" />
 						Add New Target
@@ -66,7 +69,7 @@ export default function Page() {
 				</div>
 			</div>
 
-			<div className="flex flex-col p-6 border rounded-2xl">
+			<div className="flex flex-col p-6 border rounded-2xl bg-white">
 				<Date />
 
 				<div className="flex flex-col md:flex-row gap-6">
@@ -79,8 +82,10 @@ export default function Page() {
 
 					<div className="flex flex-col basis-1/3 justify-center items-center gap-10">
 						<div className="flex flex-row items-start gap-2">
-							<div className="flex justify-center items-center">
-								<AlertCircle className="text-6xl text-red-500" />
+							<div className="flex w-full h-full justify-center items-center">
+								<div className="bg-[#e90074] text-white rounded-xl p-2 font-bold">
+									<MoveDownLeft className="w-10 h-10" />
+								</div>
 							</div>
 							<div>
 								<p className="text-md font-medium flex items-center gap-2">
@@ -97,8 +102,10 @@ export default function Page() {
 
 						<div className="flex flex-col gap-2">
 							<div className="flex flex-row items-start gap-2">
-								<div className="flex justify-center items-center">
-									<CheckCircle className="w-5 h-5 text-green-400" />
+								<div className="flex w-full h-full justify-center items-center">
+									<div className="bg-green-600 text-white rounded-xl p-2 font-bold">
+										<MoveUpRight className="w-10 h-10" />
+									</div>
 								</div>
 								<div>
 									<p className="text-md font-medium flex items-center gap-2">
@@ -106,7 +113,7 @@ export default function Page() {
 									</p>
 									<div className="flex items-baseline gap-3 text-lg font-semibold">
 										<div className="text-6xl">100</div>
-										<div className="text-md text-green-400">10.6%</div>
+										<div className="text-md text-green-600">10.6%</div>
 									</div>
 								</div>
 							</div>
@@ -114,6 +121,8 @@ export default function Page() {
 					</div>
 				</div>
 			</div>
+
+			<RecentTables />
 		</main>
 	);
 }

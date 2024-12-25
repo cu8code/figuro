@@ -1,6 +1,14 @@
-"use client"
+"use client";
 
 import { useState } from "react";
+import {
+  Globe,
+  Youtube,
+  Instagram,
+  Twitter,
+  Magnet,
+  CheckCircle,
+} from "lucide-react";
 
 export default function ScanNewContent() {
   const [url, setUrl] = useState<string>("");
@@ -21,32 +29,42 @@ export default function ScanNewContent() {
 
   return (
     <main className="flex-1 bg-gray-100 p-4 space-y-6">
-
       {/* Page Title */}
       <section>
         <h1 className="text-2xl font-semibold">Scan New Content</h1>
-        <p className="text-gray-500">Enter the details below to scan your content for copyright violations.</p>
+        <p className="text-gray-500">
+          Enter the details below to scan your content for copyright violations.
+        </p>
       </section>
 
       {/* Form for Scan */}
-      <section className="bg-white p-6 rounded shadow space-y-4">
+      <section className="p-6 rounded border border-gray-300 space-y-4">
         <div>
-          <label htmlFor="contentUrl" className="block text-sm font-semibold">Content URL</label>
-          <input
-            type="url"
-            id="contentUrl"
-            className="w-full p-3 mt-2 bg-gray-50 rounded border border-gray-300"
-            placeholder="Enter the URL of the content to scan"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
+          <label htmlFor="contentUrl" className="block text-sm font-semibold">
+            Content URL
+          </label>
+          <div className="flex items-center border border-gray-300 rounded mt-2">
+            <input
+              type="url"
+              id="contentUrl"
+              className="w-full p-3 bg-gray-50 rounded-l focus:outline-none"
+              placeholder="Enter the URL of the content to scan"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+            />
+            <span className="p-3 text-gray-500">
+              <Globe size={20} />
+            </span>
+          </div>
         </div>
 
         <div>
-          <label htmlFor="platform" className="block text-sm font-semibold">Platform</label>
+          <label htmlFor="platform" className="block text-sm font-semibold">
+            Platform
+          </label>
           <select
             id="platform"
-            className="w-full p-3 mt-2 bg-gray-50 rounded border border-gray-300"
+            className="w-full p-3 mt-2 bg-gray-50 rounded border border-gray-300 focus:outline-none"
             value={platform}
             onChange={(e) => setPlatform(e.target.value)}
           >
@@ -70,37 +88,48 @@ export default function ScanNewContent() {
 
       {/* Status Message */}
       {status && (
-        <section className="bg-white p-6 rounded shadow mt-4">
-          <p className="text-lg font-semibold">Scan Status:</p>
-          <p className="text-green-500">{status}</p>
+        <section className="p-6 rounded border border-green-400 flex items-center">
+          <CheckCircle className="text-green-500 mr-3" size={24} />
+          <div>
+            <p className="text-lg font-semibold text-green-500">Scan Status:</p>
+            <p>{status}</p>
+          </div>
         </section>
       )}
 
       {/* Section for Scan History or Results */}
-      <section className="bg-white p-6 rounded shadow mt-6">
-        <h2 className="text-xl font-semibold">Previous Scans</h2>
-        <div className="space-y-4 mt-4">
-          <div className="p-4 bg-gray-50 rounded">
-            <p className="font-semibold">Content Title - URL</p>
-            <p className="text-sm text-gray-500">Platform: YouTube</p>
-            <p className="text-sm text-gray-400">Scan Completed: 12/20/2024</p>
-            <span className="text-green-500">Matches Found: 3</span>
+      <section className="p-6 rounded border border-gray-300 mt-6">
+        <h2 className="text-xl font-semibold mb-4">Previous Scans</h2>
+        <div className="space-y-4">
+          <div className="p-4 flex items-center border border-gray-300 rounded">
+            <Youtube className="text-red-500 mr-4" size={24} />
+            <div>
+              <p className="font-semibold">Content Title - URL</p>
+              <p className="text-sm text-gray-500">Platform: YouTube</p>
+              <p className="text-sm text-gray-400">Scan Completed: 12/20/2024</p>
+              <span className="text-green-500">Matches Found: 3</span>
+            </div>
           </div>
-          <div className="p-4 bg-gray-50 rounded">
-            <p className="font-semibold">Content Title - URL</p>
-            <p className="text-sm text-gray-500">Platform: Instagram</p>
-            <p className="text-sm text-gray-400">Scan Completed: 12/19/2024</p>
-            <span className="text-red-500">Matches Found: 1</span>
+          <div className="p-4 flex items-center border border-gray-300 rounded">
+            <Instagram className="text-pink-500 mr-4" size={24} />
+            <div>
+              <p className="font-semibold">Content Title - URL</p>
+              <p className="text-sm text-gray-500">Platform: Instagram</p>
+              <p className="text-sm text-gray-400">Scan Completed: 12/19/2024</p>
+              <span className="text-red-500">Matches Found: 1</span>
+            </div>
           </div>
-          <div className="p-4 bg-gray-50 rounded">
-            <p className="font-semibold">Content Title - URL</p>
-            <p className="text-sm text-gray-500">Platform: Website</p>
-            <p className="text-sm text-gray-400">Scan Completed: 12/18/2024</p>
-            <span className="text-yellow-500">Matches Found: 0</span>
+          <div className="p-4 flex items-center border border-gray-300 rounded">
+            <Globe className="text-blue-500 mr-4" size={24} />
+            <div>
+              <p className="font-semibold">Content Title - URL</p>
+              <p className="text-sm text-gray-500">Platform: Website</p>
+              <p className="text-sm text-gray-400">Scan Completed: 12/18/2024</p>
+              <span className="text-yellow-500">Matches Found: 0</span>
+            </div>
           </div>
         </div>
       </section>
-      
     </main>
   );
 }
