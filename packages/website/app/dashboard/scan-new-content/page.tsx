@@ -3,8 +3,6 @@
 import { useState } from "react";
 import {
   Globe,
-  Youtube,
-  Instagram,
   CheckCircle,
 } from "lucide-react";
 
