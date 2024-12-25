@@ -1,34 +1,8 @@
-"use client";
-
 import { HeroGraph } from "@/components/bargraph";
+import { SelectionDate } from "@/components/dateSelect";
 import { RecentTables } from "@/components/recent";
 import { Plus, Play, Target, TrendingUp, MoveDownLeft, MoveUpRight } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-
-export function Date() {
-	const [selected, setSelected] = useState("Year");
-
-	const options = ["Week", "Daily", "Month", "Year"];
-
-	return (
-		<div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-			<p className="text-xl md:text-2xl text-gray-800">Infringements Detected</p>
-			<div className="flex space-x-1 text-sm bg-gray-100 p-2 rounded-2xl">
-				{options.map((option) => (
-					<div
-						key={option}
-						className={`cursor-pointer px-3 py-1 rounded-md transition ${selected === option ? "bg-black text-white" : ""
-							}`}
-						onClick={() => setSelected(option)}
-					>
-						{option}
-					</div>
-				))}
-			</div>
-		</div>
-	);
-}
 
 export default function Page() {
 	return (
@@ -70,7 +44,7 @@ export default function Page() {
 			</div>
 
 			<div className="flex flex-col p-6 border rounded-2xl bg-white">
-				<Date />
+				<SelectionDate />
 
 				<div className="flex flex-col md:flex-row gap-6">
 					<div className="flex-1 basis-2/3">

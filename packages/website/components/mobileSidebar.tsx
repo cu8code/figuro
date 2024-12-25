@@ -11,7 +11,7 @@ type MobileSidebarProps = {
   };
 };
 
-export const MobileSidebar = ({ userProfile }: MobileSidebarProps) => {
+export const MobileSidebar = ({  }: MobileSidebarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleSidebar = () => setIsOpen(!isOpen);
 
@@ -31,7 +31,7 @@ export const MobileSidebar = ({ userProfile }: MobileSidebarProps) => {
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <Sidebar userProfile={userProfile} />
+        <Sidebar />
       </div>
 
       {/* Overlay */}
