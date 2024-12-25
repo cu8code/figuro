@@ -5,8 +5,6 @@ import {
   Globe,
   Youtube,
   Instagram,
-  Twitter,
-  Magnet,
   CheckCircle,
 } from "lucide-react";
 

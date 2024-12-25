@@ -1,7 +1,7 @@
 "use client";
 
-import { Home, Search, FileText, Settings, CreditCard, HelpCircle, Menu, X, User } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Home, Search, FileText, Settings, CreditCard, HelpCircle, Menu, X } from "lucide-react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Profile } from "./profile";

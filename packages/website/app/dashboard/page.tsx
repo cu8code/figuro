@@ -2,7 +2,7 @@
 
 import { HeroGraph } from "@/components/bargraph";
 import { RecentTables } from "@/components/recent";
-import { Plus, Play, Target, TrendingUp, CheckCircle, AlertCircle, MoveDownLeft, MoveUpRight } from "lucide-react";
+import { Plus, Play, Target, TrendingUp, MoveDownLeft, MoveUpRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export default function MyCases() {
-  const [cases, setCases] = useState([
+  const [cases, ] = useState([
     {
       id: 1,
       title: "Copyright Violation on YouTube Channel",

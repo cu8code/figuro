@@ -1,4 +1,5 @@
 import { HardHat, Wrench, Hammer } from "lucide-react";
+import Link from "next/link";
 
 export default function UnderConstruction() {
   return (
@@ -12,15 +13,15 @@ export default function UnderConstruction() {
         Page Under Construction
       </h1>
       <p className="text-gray-600">
-        We're working hard to bring this page to life. Check back soon!
+        We{"'"}re working hard to bring this page to life. Check back soon{"!"}
       </p>
       <div className="mt-8">
-        <a
+        <Link
           href="/"
           className="text-blue-600 hover:underline"
         >
           Return to Home
-        </a>
+        </Link>
       </div>
     </main>
   );
