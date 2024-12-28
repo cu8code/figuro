@@ -15,7 +15,7 @@ const Page = () => {
 	)
 }
 
-export const Navbar = () => {
+const Navbar = () => {
 	return (
 		<nav className="w-full bg-white p-4 shadow-sm">
 			<div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
@@ -36,7 +36,7 @@ export const Navbar = () => {
 	);
 };
 
-export const Hero = () => {
+const Hero = () => {
 	return (
 		<div className="w-full min-h-[80vh] bg-white p-4">
 			<div className="max-w-7xl mx-auto py-12">
@@ -46,7 +46,7 @@ export const Hero = () => {
 	)
 }
 
-export const Footer = () => {
+const Footer = () => {
 	return (
 		<footer className="w-full bg-white border-t border-gray-100 p-4">
 			<div className="max-w-7xl mx-auto">
@@ -67,6 +67,7 @@ const SemanticSegmentation = () => {
 	const [isDragging, setIsDragging] = useState(false);
 	const imageRef = useRef<HTMLImageElement>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const outlineCanvasRef = useRef<HTMLCanvasElement>(null);
 	const dropZoneRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -95,38 +96,127 @@ const SemanticSegmentation = () => {
 		}
 	};
 
+
+	const applyGaussianBlur = (data: Uint8ClampedArray, width: number, height: number, radius: number = 1) => {
+		const kernel = generateGaussianKernel(radius);
+		const result = new Uint8ClampedArray(data.length);
+
+		for (let y = 0; y < height; y++) {
+			for (let x = 0; x < width; x++) {
+				let r = 0, g = 0, b = 0, a = 0;
+				let weightSum = 0;
+
+				// Apply kernel
+				for (let ky = -radius; ky <= radius; ky++) {
+					for (let kx = -radius; kx <= radius; kx++) {
+						const px = x + kx;
+						const py = y + ky;
+
+						if (px >= 0 && px < width && py >= 0 && py < height) {
+							const i = (py * width + px) * 4;
+							const weight = kernel[ky + radius][kx + radius];
+
+							r += data[i] * weight;
+							g += data[i + 1] * weight;
+							b += data[i + 2] * weight;
+							a += data[i + 3] * weight;
+							weightSum += weight;
+						}
+					}
+				}
+
+				// Set result
+				const i = (y * width + x) * 4;
+				result[i] = r / weightSum;
+				result[i + 1] = g / weightSum;
+				result[i + 2] = b / weightSum;
+				result[i + 3] = a / weightSum;
+			}
+		}
+
+		return result;
+	};
+
+	// Generate Gaussian kernel
+	const generateGaussianKernel = (radius: number) => {
+		const size = radius * 2 + 1;
+		const kernel = Array(size).fill(0).map(() => Array(size).fill(0));
+		const sigma = radius / 2;
+
+		for (let y = -radius; y <= radius; y++) {
+			for (let x = -radius; x <= radius; x++) {
+				const exponent = -(x * x + y * y) / (2 * sigma * sigma);
+				kernel[y + radius][x + radius] = Math.exp(exponent) / (2 * Math.PI * sigma * sigma);
+			}
+		}
+
+		return kernel;
+	};
+
 	const processImage = async () => {
-		if (!model || !imageRef.current || !canvasRef.current) return;
+		if (!model || !imageRef.current || !canvasRef.current || !outlineCanvasRef.current) return;
 		setIsProcessing(true);
+
 		try {
 			const prediction = await model.segment(imageRef.current);
 			const canvas = canvasRef.current;
+			const outlineCanvas = outlineCanvasRef.current;
 			const ctx = canvas.getContext('2d');
+			const outlineCtx = outlineCanvas.getContext('2d');
+			if (!ctx || !outlineCtx) return;
 
-			if (!ctx) return;
 			canvas.width = prediction.width;
 			canvas.height = prediction.height;
+			outlineCanvas.width = prediction.width;
+			outlineCanvas.height = prediction.height;
 
-			console.log(prediction );
-			console.log(imageRef.current, imageRef.current.width, imageRef.current.height);
+			const tensor = tf.browser.fromPixels(imageRef.current).div(tf.scalar(255));
+			const reshapedTensor = tensor.expandDims(0);
 
-			ctx.drawImage(imageRef.current, 0, 0);
-			const originalImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+			if (reshapedTensor.shape[0] === 1) {
+				// eslint-disable-next-line  @typescript-eslint/no-explicit-any
+				const resize = tf.image.resizeBilinear(reshapedTensor as any, [prediction.height, prediction.width]);
+				const imageData = await tf.browser.toPixels(resize.squeeze());
 
-			const segMap = prediction.segmentationMap;
-			const imageData = originalImageData;
+				const blendedData = new Uint8ClampedArray(prediction.width * prediction.height * 4);
 
-			for (let i = 0; i < segMap.length; i++) {
-				const j = i * 4;
-				if (segMap[i] === 0) {
-					imageData.data[j + 3] = 0;
+				const original = new Uint32Array(imageData.buffer);
+				const segmentation = new Uint32Array(prediction.segmentationMap.buffer);
+				const blended = new Uint32Array(blendedData.buffer);
+
+				const isBackgroundPixel = (value: number) => 
+					(value & 0xFF000000) === 0xFF000000 || 
+						(value & 0x00FFFFFF) === 0x00000000;
+
+				// Process pixels
+				for (let y = 0; y < prediction.height; y++) {
+					for (let x = 0; x < prediction.width; x++) {
+						const i = y * prediction.width + x;
+
+						if (isBackgroundPixel(segmentation[i])) {
+							blended[i] = 0x00000000;
+						} else {
+							blended[i] = original[i];
+						}
+					}
 				}
-			}
 
-			ctx.putImageData(imageData, 0, 0);
+				// Apply edge smoothing
+				const smoothedData = applyGaussianBlur(blendedData, prediction.width, prediction.height, 2);
+
+				// Put the results onto both canvases
+				ctx.putImageData(new ImageData(smoothedData, prediction.width, prediction.height), 0, 0);
+				outlineCtx.putImageData(new ImageData(prediction.segmentationMap, prediction.width, prediction.height), 0, 0);
+
+				// Cleanup
+				resize.dispose();
+				tensor.dispose();
+				reshapedTensor.dispose();
+			}
 		} catch (error) {
 			console.error('Error:', error);
 		}
+
 		setIsProcessing(false);
 	};
 
@@ -151,6 +241,7 @@ ${!imageUrl && 'hover:border-gray-800 hover:bg-gray-50'}
 					id="imageUpload"
 				/>
 
+				{/* eslint-disable @next/next/no-img-element */}
 				{!imageUrl ? (
 					<label htmlFor="imageUpload" className="cursor-pointer">
 						<div className="space-y-4">
@@ -169,10 +260,22 @@ ${!imageUrl && 'hover:border-gray-800 hover:bg-gray-50'}
 					)}
 			</div>
 
-			<canvas
-				ref={canvasRef}
-				className="w-full mt-6 border border-gray-200 rounded-lg"
-			/>
+			<div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+				<div>
+					<h3 className="text-lg font-medium mb-2">Blended Result</h3>
+					<canvas
+						ref={canvasRef}
+						className="w-full border border-gray-200 rounded-lg"
+					/>
+				</div>
+				<div>
+					<h3 className="text-lg font-medium mb-2">Segmentation Output</h3>
+					<canvas
+						ref={outlineCanvasRef}
+						className="w-full border border-gray-200 rounded-lg"
+					/>
+				</div>
+			</div>
 
 			<button 
 				onClick={processImage}
@@ -181,8 +284,7 @@ ${!imageUrl && 'hover:border-gray-800 hover:bg-gray-50'}
 w-full py-3 px-4 mt-6 rounded-lg font-medium transition-colors
 ${isProcessing 
 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' 
-: 'bg-gray-800 text-white hover:bg-gray-700'
-}
+: 'bg-gray-800 text-white hover:bg-gray-700'}
 `}
 			>
 				{isProcessing ? 'Processing...' : 'Process Image'}

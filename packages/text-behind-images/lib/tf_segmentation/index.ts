@@ -96,6 +96,7 @@ export async function load(
 		console.log("loading from memory");
 		graphModel = await tfjs.loadGraphModel('indexeddb://deep');
 		console.log("loaded from memeory");
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch(e) {
 		console.log("failed to load from memeroy so loading from network");
 		graphModel = await tfconv.loadGraphModel(
