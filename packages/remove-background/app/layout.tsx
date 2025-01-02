@@ -1,16 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { ModelProvider } from "@/components/ModalContex";
 
 export const metadata: Metadata = {
   title: "Remove Background",
@@ -19,16 +9,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <head>
+        <script src="https://unpkg.com/react-scan/dist/auto.global.js" async />
+        {/* rest of your scripts go under */}
+      </head>
+      <body>
+				<ModelProvider>
+				{children}
+				</ModelProvider>
+			</body>
     </html>
-  );
+  )
 }

@@ -91,17 +91,18 @@ export async function load(
 				`together with the degree of quantization (either 1, 2 or 4).` +
 				`Aborting, since neither has been provided.`);
 	}
-	let graphModel = null
+	// eslint-disable-next-line   @typescript-eslint/no-explicit-any
+	let graphModel: any = null
 	try {
 		console.log("loading from memory");
-		graphModel = await tfjs.loadGraphModel('indexeddb://deep');
+	// eslint-disable-next-line   @typescript-eslint/no-explicit-any
+		graphModel = await tfjs.loadGraphModel('indexeddb://deep') as any;
 		console.log("loaded from memeory");
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch(e) {
 		console.log("failed to load from memeroy so loading from network");
-		graphModel = await tfconv.loadGraphModel(
-			modelConfig.modelUrl ||
-				getURL(modelConfig.base!, modelConfig.quantizationBytes!));
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		graphModel = await tfconv.loadGraphModel( modelConfig.modelUrl ||getURL(modelConfig.base!, modelConfig.quantizationBytes!)) as any;
 		console.log("saving to memeory");
 		graphModel.save("indexeddb://deep")
 	}
