@@ -3,13 +3,38 @@
 import React, { useEffect, useState } from "react";
 import * as deeplab from "../lib/tf_segmentation";
 import { createContext } from "react";
+import { Loader } from 'lucide-react'; // Importing a loader icon from lucide-react
 
+// Create a context for the model
 export const ModelContext = createContext<deeplab.SemanticSegmentation | null>(null);
 
 interface ModelProviderProps {
   children: React.ReactNode;
 }
 
+// Loading Spinner Component
+const LoadingSpinner: React.FC = () => (
+  <div className="flex flex-col items-center justify-center min-h-screen p-4">
+    <Loader className="animate-spin h-16 w-16 text-gray-900 mb-4" />
+    <p className="text-lg text-gray-600 text-center">Loading segmentation model...</p>
+    <p className="text-sm text-gray-500 text-center">This might take up to a minute, but it will be faster next time!</p>
+  </div>
+);
+
+// Error Component
+const ErrorComponent: React.FC<{ message: string }> = ({ message }) => (
+  <div className="flex flex-col items-center justify-center min-h-screen p-4">
+    <p className="text-lg text-red-500 text-center">{message}</p>
+    <button
+      onClick={() => window.location.reload()}
+      className="mt-4 px-6 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition duration-200"
+    >
+      Retry
+    </button>
+  </div>
+);
+
+// Main Model Provider Component
 export const ModelProvider: React.FC<ModelProviderProps> = ({ children }) => {
   const [model, setModel] = useState<deeplab.SemanticSegmentation | null>(null);
   const [loading, setLoading] = useState(true);
@@ -43,32 +68,11 @@ export const ModelProvider: React.FC<ModelProviderProps> = ({ children }) => {
   }, []);
 
   if (loading) {
-    console.log("Model is currently loading...");
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mb-4"></div>
-          <p className="text-lg text-gray-600">Loading segmentation model...</p>
-        </div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (error) {
-    console.log("Error encountered while loading the model:", error);
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center text-red-500">
-          <p className="text-lg">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-          >
-            Retry
-          </button>
-        </div>
-      </div>
-    );
+    return <ErrorComponent message={error} />;
   }
 
   console.log("Model successfully loaded and available in context.");
