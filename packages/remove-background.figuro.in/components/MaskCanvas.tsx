@@ -3,7 +3,62 @@
 import { blendImagesTransParentMask, cookImage } from '@/lib/utils';
 import React, { useRef, useEffect, useState, useContext, useCallback } from 'react';
 import { ModelContext } from './ModalContex';
-import { Download } from 'lucide-react';
+import { Pencil, Eraser, Download } from 'lucide-react';
+
+const IconButton = ({ onClick, title, active = false, children }) => (
+    <button 
+        onClick={onClick}
+        className={`
+            p-2 rounded-lg transition-all duration-200 
+            ${active 
+                ? 'bg-black text-white' 
+                : 'bg-white text-black hover:bg-gray-100'
+            }
+            flex items-center justify-center
+            border border-gray-200 shadow-sm
+        `}
+        title={title}
+    >
+        {children}
+    </button>
+);
+
+const ControlPanel = ({ currentMode, setCurrentMode, onDownload }) => {
+    return (
+        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex gap-4 p-4 rounded-xl bg-white/90 backdrop-blur-sm shadow-lg border border-gray-200">
+            <div className="flex gap-4">
+                <IconButton 
+                    onClick={() => setCurrentMode('draw')} 
+                    title="Draw Mode"
+                    active={currentMode === 'draw'}
+                >
+                    <Pencil size={20} />
+                </IconButton>
+                
+                <IconButton 
+                    onClick={() => setCurrentMode('erase')} 
+                    title="Erase Mode"
+                    active={currentMode === 'erase'}
+                >
+                    <Eraser size={20} />
+                </IconButton>
+                
+                <IconButton 
+                    onClick={onDownload} 
+                    title="Download Image"
+                >
+                    <Download size={20} />
+                </IconButton>
+            </div>
+            
+            <div className="pl-4 border-l border-gray-200 flex items-center">
+                <span className="text-sm font-medium text-gray-600 capitalize">
+                    {currentMode} Mode
+                </span>
+            </div>
+        </div>
+    );
+};
 
 interface CanvasProps {
     imageUrl: string;
@@ -68,12 +123,6 @@ const Canvas: React.FC<CanvasProps> = ({ imageUrl, brushSize = 20, mode = 'erase
         e.preventDefault();
         setIsDrawing(true);
         
-        if (e.button === 2) {
-            setCurrentMode('erase');
-        } else if (e.button === 0) {
-            setCurrentMode('draw');
-        }
-        
         const x = e.nativeEvent.offsetX - offset.x;
         const y = e.nativeEvent.offsetY - offset.y;
         
@@ -83,7 +132,7 @@ const Canvas: React.FC<CanvasProps> = ({ imageUrl, brushSize = 20, mode = 'erase
             eraseCircle(x, y);
         }
     };
-
+    
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!isDrawing) return;
         
@@ -96,7 +145,7 @@ const Canvas: React.FC<CanvasProps> = ({ imageUrl, brushSize = 20, mode = 'erase
             eraseCircle(x, y);
         }
     };
-
+    
     const handleMouseUp = () => {
         setIsDrawing(false);
     };
@@ -195,39 +244,18 @@ const Canvas: React.FC<CanvasProps> = ({ imageUrl, brushSize = 20, mode = 'erase
         <div style={{ position: 'relative', textAlign: 'center' }}>
             <canvas
                 ref={canvasRef}
-                style={{
-                    border: '1px solid black',
-                    display: 'block',
-                    margin: 'auto',
-                    cursor: isDrawing ? 'crosshair' : 'default',
-                }}
+                className="border border-gray-200 mx-auto cursor-crosshair"
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
                 onContextMenu={(e) => e.preventDefault()}
             />
-            <div style={{
-                position: 'fixed',
-                bottom: '20px',
-                right: '20px',
-                backgroundColor: 'white',
-                borderRadius: '5px',
-                boxShadow: '0px 4px 10px rgba(0,0,0,0.2)',
-                padding: '5px',
-            }}>
-                <button 
-                    onClick={handleDownloadClick}
-                    style={{
-                        border: 'none',
-                        backgroundColor: 'transparent',
-                        cursor: 'pointer'
-                    }}
-                    title="Download"
-                >
-                    <Download size={24} />
-                </button>
-            </div>
+            <ControlPanel 
+                currentMode={currentMode}
+                setCurrentMode={setCurrentMode}
+                onDownload={handleDownloadClick}
+            />
         </div>
     );
 };
