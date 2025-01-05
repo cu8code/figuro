@@ -46,14 +46,24 @@ export const Images: React.FC<ImageProps> = React.memo(({ imageUrl }) => {
 		processImage();
 	}, [imageUrl, model]);
 
-	const handleCopyToClipboard = () => {
-		navigator.clipboard
-			.writeText(imageUrl)
-			.then(() => alert("Image URL copied to clipboard!"))
-			.catch((err) => {
+	const handleCopyToClipboard = async () => {
+		if (!canvasRef.current) return;
+
+		canvasRef.current.toBlob(async (blob) => {
+			if (!blob) return;
+
+			try {
+				await navigator.clipboard.write([
+					new ClipboardItem({
+						[blob.type]: blob,
+					}),
+				]);
+				alert("Image copied to clipboard!");
+			} catch (err) {
 				console.error("Failed to copy:", err);
-				alert("Failed to copy image URL.");
-			});
+				alert("Failed to copy image.");
+			}
+		});
 	};
 
 	const handleDownloadImage = () => {
