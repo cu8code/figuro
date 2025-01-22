@@ -49,7 +49,7 @@ export const WrapperGetStarted = (props: {children: React.ReactNode}) => {
 
 export const WrapperCall = (props: {children: React.ReactNode}) => {
     return (
-        <Link href={"/call"}>{props.children}</Link>
+        <Link href={"https://cal.com/ankanroy/get-on-a-call"}>{props.children}</Link>
     )
 }
 
