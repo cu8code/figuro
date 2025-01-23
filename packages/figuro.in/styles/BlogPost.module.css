@@ -1,0 +1,123 @@
+/* BlogPost.module.css */
+.blogPost {
+  background: transparent; /* Remove white background */
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.blogPost h1 {
+  margin: 0 0 20px;
+  color: #333; /* Dark gray for headings */
+  font-size: 2rem; /* Larger font size for h1 */
+  font-weight: bold;
+}
+
+.blogPost .date {
+  font-size: 0.9em;
+  color: #888; /* Lighter gray for date */
+  margin-bottom: 20px;
+}
+
+.blogPost .content {
+  line-height: 1.8;
+  color: #333; /* Dark gray for text */
+}
+
+.blogPost .content h2 {
+  color: #333; /* Dark gray for h2 */
+  margin-top: 30px;
+  font-size: 1.75rem; /* Larger font size for h2 */
+  font-weight: bold;
+}
+
+.blogPost .content h3 {
+  color: #333; /* Dark gray for h3 */
+  margin-top: 25px;
+  font-size: 1.5rem; /* Larger font size for h3 */
+  font-weight: bold;
+}
+
+.blogPost .content h4 {
+  color: #333; /* Dark gray for h4 */
+  margin-top: 20px;
+  font-size: 1.25rem; /* Larger font size for h4 */
+  font-weight: bold;
+}
+
+.blogPost .content p {
+  margin: 15px 0;
+  padding-left: 10px; /* Add padding for sideline */
+  border-left: 3px solid transparent; /* Transparent sideline */
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+.blogPost .content p:hover {
+  background: #f9f9f9; /* Light gray background on hover */
+  border-left: 3px solid var(--primary-color); /* Colored sideline on hover */
+  padding-left: 15px; /* Increase padding on hover */
+}
+
+/* Tables */
+.blogPost .content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.blogPost .content th,
+.blogPost .content td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.blogPost .content th {
+  background-color: #f9f9f9; /* Light gray for table headers */
+  font-weight: bold;
+}
+
+/* Code Blocks */
+.blogPost .content pre {
+  background: black; /* Black background for code blocks */
+  color: white; /* White text for code blocks */
+  padding: 15px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+.blogPost .content code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+}
+
+/* Inline Code */
+.blogPost .content p code,
+.blogPost .content li code {
+  background: #f4f4f4; /* Light gray for inline code */
+  color: #333; /* Dark gray for inline code */
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Links */
+.blogPost .content a {
+  color: var(--primary-color); /* Use theme's primary color */
+  text-decoration: none;
+}
+
+.blogPost .content a:hover {
+  text-decoration: underline;
+}
+
+/* Lists */
+.blogPost .content ul,
+.blogPost .content ol {
+  margin: 15px 0;
+  padding-left: 20px;
+}
+
+.blogPost .content li {
+  margin: 10px 0;
+}

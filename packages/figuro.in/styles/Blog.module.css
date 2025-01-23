@@ -1,0 +1,139 @@
+/* Blog.module.css */
+.container {
+  max-width: 72rem; /* Equivalent to max-w-6xl in Tailwind CSS */
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.heroSection {
+  text-align: center;
+  padding: 60px 0;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #E90074;
+}
+
+.topics {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.topics span {
+  font-size: 1rem;
+  color: #666;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.topics span:hover {
+  background: #E90074;
+  color: white;
+  border-color: #E90074;
+}
+
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.blogCard {
+  background: #ffffff; /* White background for blog cards */
+  border: 1px solid #eee;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blogCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.blogContent {
+  padding: 20px;
+}
+
+.blogTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.blogDescription {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.blogDate {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.tag {
+  font-size: 0.8rem;
+  color: #E90074;
+  background: #ffe6f0;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.readMore {
+  font-size: 0.9rem;
+  color: #E90074;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  text-decoration: none; /* Ensure no underline */
+}
+
+.readMore:hover {
+  color: #ff1a8c;
+  text-decoration: underline; /* Add underline only on hover */
+}
+
+/* Accent Border for Blog Cards */
+.blogCard {
+  position: relative;
+}
+
+.blogCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #E90074; /* Accent color */
+  border-radius: 12px 0 0 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.blogCard:hover::before {
+  opacity: 1;
+}

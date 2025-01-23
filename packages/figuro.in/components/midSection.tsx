@@ -72,7 +72,7 @@ export const Midsection = () => {
     ];
 
     return (
-        <div className="w-full bg-white py-16">
+        <div className="w-full bg-gray-50 py-16">
             <div className="max-w-6xl mx-auto px-4">
                 {/* Budget Section */}
                 <div className="mb-16 text-center">
@@ -84,7 +84,7 @@ export const Midsection = () => {
                             Transform your business with custom n8n workflows designed to save time, reduce errors, and boost efficiency. We bring enterprise-grade automation to individuals and agencies at affordable prices.
                         </p>
                         <div className="grid md:grid-cols-2 gap-8 text-left mb-8">
-                            <div className="bg-gray-50 p-8 rounded-lg">
+                            <div className="bg-white p-8 rounded-lg shadow-lg">
                                 <div className="flex items-center gap-3 mb-4">
                                     <Shield className="w-8 h-8 text-[#E90074]" />
                                     <h3 className="font-bold text-2xl">Tailored Solutions</h3>
@@ -93,7 +93,7 @@ export const Midsection = () => {
                                     Custom workflows built specifically for your business needs, ensuring maximum efficiency and scalability.
                                 </p>
                             </div>
-                            <div className="bg-gray-50 p-8 rounded-lg">
+                            <div className="bg-white p-8 rounded-lg shadow-lg">
                                 <div className="flex items-center gap-3 mb-4">
                                     <Bot className="w-8 h-8 text-[#E90074]" />
                                     <h3 className="font-bold text-2xl">AI-Powered Automation</h3>
@@ -120,7 +120,7 @@ export const Midsection = () => {
                     {comparisons.map((item, index) => (
                         <div
                             key={index}
-                            className="grid grid-cols-1 sm:grid-cols-3 sm:gap-0 gap-4 sm:border-none border-b sm:bg-transparent bg-gray-50"
+                            className="grid grid-cols-1 sm:grid-cols-3 sm:gap-0 gap-4 sm:border-none border-b sm:bg-transparent bg-white"
                         >
                             <div className="p-6 text-lg font-medium sm:border-b">{item.question}</div>
                             <div className="p-6 text-lg bg-pink-50 sm:border-b">

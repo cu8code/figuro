@@ -1,9 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 import { WrapperCall } from "./utils";
 import me from "@/app/assets/me.png";
 
 export const Hero = () => {
-    // List of icons to display in the background
     const icons = [
         { src: "/icons/google.svg", alt: "Google", size: 40, top: "10%", left: "5%", animation: "float1" },
         { src: "/icons/microsoft.svg", alt: "Microsoft", size: 50, top: "20%", left: "80%", animation: "float2" },
@@ -15,15 +15,11 @@ export const Hero = () => {
 
     return (
         <div className="relative w-full overflow-hidden">
-            {/* Pink top bar */}
             <div className="bg-[#E90074] h-2 w-full"></div>
 
-            {/* Main hero section with grid lines */}
             <div className="bg-[#000000] min-h-screen lg:min-h-[80vh] relative">
-                {/* Grid lines background */}
                 <div className="absolute inset-0 w-full h-full bg-[size:40px_40px] bg-[linear-gradient(to_right,#2c2c2c_1px,transparent_1px),linear-gradient(to_bottom,#2c2c2c_1px,transparent_1px)] opacity-30"></div>
 
-                {/* Floating Icons Background */}
                 <div className="absolute inset-0 w-full h-full overflow-hidden">
                     {icons.map((icon, index) => (
                         <div
@@ -48,17 +44,23 @@ export const Hero = () => {
                     ))}
                 </div>
 
-                {/* Content wrapper */}
                 <div className="relative z-10 flex flex-col items-center justify-center min-h-screen lg:min-h-[80vh] px-4 sm:px-8 md:px-16 pt-24 lg:pt-16">
-                    {/* Top Left Section with Logo and Login Button */}
                     <div className="w-full max-w-6xl flex justify-between items-center absolute top-6 lg:top-8">
                         <div className="flex items-center space-x-2">
                             <span className="text-white text-2xl font-extrabold tracking-wide">Figuro</span>
                             <span className="text-sm font-bold text-[#E90074] bg-white px-2 py-0.5 rounded-md uppercase">Agency</span>
                         </div>
+
+                        <div className="flex items-center space-x-6">
+                            <Link href="/blogs" className="text-white text-lg font-semibold hover:text-[#E90074] transition-colors duration-300">
+                                Blogs
+                            </Link>
+                            <Link href="/about" className="text-white text-lg font-semibold hover:text-[#E90074] transition-colors duration-300">
+                                About
+                            </Link>
+                        </div>
                     </div>
 
-                    {/* Main Content Section */}
                     <div className="w-full max-w-6xl flex flex-col lg:flex-row items-center lg:gap-12 gap-8 mt-16 lg:mt-0">
                         <div className="w-full lg:w-1/2 text-white text-center lg:text-left">
                             <h1 className="text-4xl font-bold mb-6">
@@ -79,8 +81,7 @@ export const Hero = () => {
                             </div>
                         </div>
 
-                        {/* Right Side: Your Image */}
-                        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
+                        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end mb-16 lg:mb-0">
                             <div className="relative w-[300px] h-[300px] lg:w-[400px] lg:h-[400px]">
                                 <Image
                                     src={me}
