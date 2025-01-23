@@ -1,24 +1,36 @@
 import React from 'react';
 import SemanticSegmentation from "@/components/segmentation";
-import { Camera, Upload, Download, Shield, Clock, HardHat as Magic, Sparkles, Star, Users, Crown, Laptop, Share2, Database, Cloud, Gift } from 'lucide-react';
+import {  Upload, Download, Shield, Clock, HardHat as Magic, Sparkles, Share2, Database, Cloud, Gift } from 'lucide-react';
 import FAQ from './faq';
 import { Navbar } from './navbar';
+import Head from 'next/head';
+import Link from 'next/link';
 
 
 const Page = () => {
 	return (
-		<div className='min-h-screen bg-gradient-to-b from-gray-50 to-white'>
-			<Navbar />
-			<Hero />
-			<Awards />
-			<HowToUse />
-			<Features />
-			<Testimonials />
-			<FAQ />
-		</div>
+		<>
+			<Head>
+				<title>Remove Background with AI - Fast, Secure & High Quality | Figuro</title>
+				<meta name="description" content="Remove background from images instantly using AI. Fast processing, 100% secure, and high-quality results. No credit card required. Try it now!" />
+				<meta name="keywords" content="remove background, AI background removal, image editing, fast processing, secure, high quality, Figuro" />
+				<meta property="og:title" content="Remove Background with AI - Fast, Secure & High Quality | Figuro" />
+				<meta property="og:description" content="Remove background from images instantly using AI. Fast processing, 100% secure, and high-quality results. No credit card required. Try it now!" />
+				<meta property="og:url" content="https://removebackground.figuro.in/" />
+				<meta property="og:type" content="website" />
+				<link rel="canonical" href="https://removebackground.figuro.in/" />
+			</Head>
+			<div className='min-h-screen bg-gradient-to-b from-gray-50 to-white'>
+				<Navbar />
+				<Hero />
+				<Awards />
+				<HowToUse />
+				<Features />
+				<FAQ />
+			</div>
+		</>
 	);
 };
-
 
 const Hero = () => {
 	return (
@@ -31,13 +43,13 @@ const Hero = () => {
 						<span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> AI</span>
 					</h1>
 					<p className="max-w-2xl mx-auto text-xl text-gray-600 mb-12">
-						Get perfect results in seconds. No credit card required.
+						Transform your images instantly with Figuro{"'"}s AI-powered background removal. Fast, secure, and high-quality results—no credit card required.
 					</p>
-					<SemanticSegmentation  />
+					<SemanticSegmentation />
 					<div className="mt-8 flex justify-center gap-4 text-sm text-gray-600">
 						<div className="flex items-center gap-2">
 							<Clock className="w-4 h-4" />
-							Fast Processing
+							Lightning Fast
 						</div>
 						<div className="flex items-center gap-2">
 							<Shield className="w-4 h-4" />
@@ -45,14 +57,29 @@ const Hero = () => {
 						</div>
 						<div className="flex items-center gap-2">
 							<Magic className="w-4 h-4" />
-							High Quality
+							Professional Quality
 						</div>
+					</div>
+					<div className="mt-12">
+						<p className="text-gray-600 text-sm">
+							Powered by{" "}
+							<Link
+								href="https://figuro.in"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="text-blue-600 hover:text-blue-800 font-semibold"
+							>
+								Figuro.in
+							</Link>{" "}
+							- Your AI-automation of mash junk.
+						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
 };
+
 const Awards = () => {
 	const awards = [
 		{ icon: "🏆", title: "Product of the Year", subtitle: "AI Awards 2024" },
@@ -81,9 +108,6 @@ const Awards = () => {
 		</div>
 	);
 };
-
-
-
 
 const HowToUse = () => {
 	const steps = [
@@ -184,79 +208,6 @@ const Features = () => {
 								<span className="text-sm bg-blue-50 text-blue-600 px-2 py-1 rounded-full text-nowrap">{feature.stat}</span>
 							</div>
 							<p className="text-gray-600">{feature.description}</p>
-						</div>
-					))}
-				</div>
-			</div>
-		</div>
-	);
-};
-
-const Testimonials = () => {
-	const testimonials = [
-		{
-			name: "Sarah Johnson",
-			role: "Lead Designer at Dribbble",
-			quote: "We've processed over 100,000 product images using removebackground.figuro.in. The time savings are incredible, and the quality is consistently outstanding.",
-			image: <Users className="w-12 h-12 text-blue-600" />,
-			rating: 5,
-			platform: "Trustpilot"
-		},
-		{
-			name: "Mike Chen",
-			role: "Professional Photographer",
-			quote: "As someone who processes thousands of photos monthly, the batch processing and API integration have been game-changers for my workflow.",
-			image: <Camera className="w-12 h-12 text-blue-600" />,
-			rating: 5,
-			platform: "G2"
-		},
-		{
-			name: "Emma Davis",
-			role: "Marketing Director at Shopify",
-			quote: "The enterprise features like team collaboration and cloud storage integration fit perfectly into our content creation pipeline.",
-			image: <Crown className="w-12 h-12 text-blue-600" />,
-			rating: 5,
-			platform: "Capterra"
-		},
-		{
-			name: "Alex Rodriguez",
-			role: "E-commerce Manager",
-			quote: "We've seen a 60% reduction in image processing time since switching to removebackground.figuro.in. The API integration is flawless.",
-			image: <Laptop className="w-12 h-12 text-blue-600" />,
-			rating: 5,
-			platform: "Trustpilot"
-		}
-	];
-
-	return (
-		<div className="bg-gray-50 py-24">
-			<div className="max-w-7xl mx-auto px-4">
-				<div className="text-center mb-16">
-					<span className="text-blue-600 font-semibold">TESTIMONIALS</span>
-					<h2 className="text-3xl font-bold mt-2 mb-4">Loved by 100+ Creators</h2>
-					<p className="text-xl text-gray-600">Join the community of satisfied professionals</p>
-				</div>
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-					{testimonials.map((testimonial) => (
-						<div key={testimonial.name} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-							<div className="flex justify-between items-start mb-6">
-								<div className="flex gap-4">
-									<div>
-										<p className="font-semibold">{testimonial.name}</p>
-										<p className="text-sm text-gray-500">{testimonial.role}</p>
-									</div>
-								</div>
-								<div className="flex items-center gap-1 bg-blue-50 px-3 py-1 rounded-full">
-									<Star className="w-4 h-4 text-blue-600 fill-current" />
-									<span className="text-sm text-blue-600">{testimonial.platform}</span>
-								</div>
-							</div>
-							<p className="text-gray-600 mb-6">{'"'}{testimonial.quote}{'"'}</p>
-							<div className="flex gap-1">
-								{[...Array(testimonial.rating)].map((_, i) => (
-									<Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-								))}
-							</div>
 						</div>
 					))}
 				</div>

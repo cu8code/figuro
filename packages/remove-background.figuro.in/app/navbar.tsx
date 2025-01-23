@@ -1,6 +1,7 @@
 "use client";
 
 import { Camera } from "lucide-react";
+import Link from 'next/link';
 
 export const Navbar = () => {
 
@@ -17,7 +18,7 @@ export const Navbar = () => {
 					</h1>
 				</div>
 				<div className="hidden md:flex items-center gap-8 text-sm text-gray-600">
-					<a href="#how" className="hover:text-gray-900 transition-colors">How it works</a>
+					<Link href="/how-it-works" className="hover:text-gray-900 transition-colors">How it works</Link>
 				</div>
 			</div>
 		</nav>
