@@ -32,10 +32,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blogPostPaths = getAllFiles(blogDir);
 
-  const blogEntries = blogPostPaths.map((filePath) => ({
-    url: `https://figuro.in/blogs/${path.basename(filePath)}`,
-    lastModified: getLastModifiedDate(filePath),
-  }));
+  const blogEntries = blogPostPaths.map((filePath) => {
+    const baseName = path.basename(filePath, path.extname(filePath)); // Get the base name without extension
+    return {
+      url: `https://figuro.in/blogs/${baseName}`, // Use the base name in the URL
+      lastModified: getLastModifiedDate(filePath),
+    };
+  });
 
   return [
     {
