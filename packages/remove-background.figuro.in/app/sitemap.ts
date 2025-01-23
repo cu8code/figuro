@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 import { promises as fs } from 'fs';
-import path from "path"
+import path from "path";
 
 export async function getLastModified(filePath: string): Promise<Date> {
 	try {
@@ -17,9 +17,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 	const filePaths = {
 		home: path.join(process.cwd(), 'app', 'page.tsx'),
+		howItWorks: path.join(process.cwd(), 'app', 'how-it-works', 'page.tsx'),
 	};
 
 	const lastModifiedHome = await getLastModified(filePaths.home);
+	const lastModifiedHowItWorks = await getLastModified(filePaths.howItWorks);
 
 	return [
 		{
@@ -30,9 +32,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		},
 		{
 			url: `${baseUrl}/how-it-works`,
-			lastModified: lastModifiedHome,
+			lastModified: lastModifiedHowItWorks,
 			changeFrequency: 'yearly',
-			priority: 2,
+			priority: 0.8,
 		},
 	];
 }
