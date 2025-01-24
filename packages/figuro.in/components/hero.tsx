@@ -58,6 +58,10 @@ export const Hero = () => {
                             <Link href="/about" className="text-white text-lg font-semibold hover:text-[#E90074] transition-colors duration-300">
                                 About
                             </Link>
+                            {/* Added Services Button */}
+                            <Link href="#services" className="text-white text-lg font-semibold hover:text-[#E90074] transition-colors duration-300">
+                                Services
+                            </Link>
                         </div>
                     </div>
 
@@ -78,6 +82,13 @@ export const Hero = () => {
                                         Book a Call
                                     </button>
                                 </WrapperCall>
+                                {/* Added Services Link beside Call Now */}
+                                <Link
+                                    href="#services"
+                                    className="bg-white text-[#E90074] py-4 px-12 rounded-lg text-lg font-semibold hover:bg-gray-100 hover:scale-105 transition-all duration-300 transform border-2 border-[#E90074]/20 shadow-[0_4px_6px_-1px_rgba(255,255,255,0.3),0_2px_4px_-1px_rgba(255,255,255,0.2)] hover:shadow-[0_6px_8px_-1px_rgba(255,255,255,0.4),0_4px_6px_-1px_rgba(255,255,255,0.3)]"
+                                >
+                                    Services
+                                </Link>
                             </div>
                         </div>
 
